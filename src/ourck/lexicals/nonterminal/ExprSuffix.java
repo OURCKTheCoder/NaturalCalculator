@@ -17,9 +17,19 @@ public class ExprSuffix extends NonTerminal {
 	public double recursiveDown(Double inhAttr) throws NotMatchException {
 		inh = inhAttr;
 		LinkedStack<Terminal> temp = Analyzer.INPUT_STACK; // Backup.
-		Terminal c = Analyzer.INPUT_STACK.getTop();
-		ListIterator<Lexical> it = null;
 		
+		Terminal c = null;
+		// 因为S能产生空符号，因此当选择了S->RS（R即本符号）时可能存在NullPointerExp
+		// （比如，全部输入已匹配完成，剩下的最后一个S成为空符号时，再getTop()会导致空指针异常）
+		try {
+			c = Analyzer.INPUT_STACK.getTop();
+		} catch(NullPointerException e) {
+			NotMatchException e2 = new NotMatchException();
+			e2.initCause(new RuntimeException(e));
+			throw e2;
+		}
+		
+		ListIterator<Lexical> it = null;
 		if(!(c instanceof Operator)) throw new NotMatchException();
 		else {
 			switch(((Operator)c).getOpchar()) {

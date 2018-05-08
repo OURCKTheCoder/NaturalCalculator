@@ -33,7 +33,7 @@ public class LinkedStack<T> {
 	
 	public void push(T obj) { data.addFirst(obj); }
 	public T pop() { return data.poll(); }
-	public T getTop() { return data.peek(); }
+	public T getTop() { if(!isEmpty()) return data.peek(); else throw new NullPointerException(" [!] Stack is empty!"); }
 	public boolean isEmpty() { return data.isEmpty(); }
 	public void clear() { data.clear(); }
 	

@@ -41,6 +41,7 @@ public class Factor extends NonTerminal {
 				
 				if(Analyzer.INPUT_STACK.getTop().equals(it.next()))
 					Analyzer.INPUT_STACK.pop(); // TODO Match ')'.
+				else throw new NotMatchException(" [!] ')' Expected!");
 				
 				break;
 				

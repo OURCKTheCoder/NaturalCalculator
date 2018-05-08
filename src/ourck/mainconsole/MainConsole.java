@@ -9,7 +9,8 @@ package ourck.mainconsole;
  */
 import ourck.lexanalyzer.*;
 import ourck.lexicals.NotMatchException;
-import ourck.lexicals.nonterminal.Expr;
+import ourck.lexicals.nonterminal.StartChar;
+
 import static ourck.mainconsole.ScreenReader.jin;
 
 public class MainConsole {
@@ -21,9 +22,12 @@ public class MainConsole {
 			String testStr = jin();
 			nAnalyzer.analyze(testStr);
 			oAnalyzer.analyze(testStr);
-			System.out.println(" = " + new Expr().recursiveDown(null));
+			System.out.println(" = " + new StartChar().recursiveDown(null));
 		} catch (NotMatchException e) {
 			System.err.println(e.getMessage());
+		} catch (NullPointerException e) {
+			System.err.println(e.getMessage() + " Maybe ')' expected? ");
+			e.printStackTrace();
 		}
 
 	}
