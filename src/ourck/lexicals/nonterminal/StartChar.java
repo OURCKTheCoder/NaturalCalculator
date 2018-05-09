@@ -14,7 +14,4 @@ public class StartChar extends NonTerminal {
 		else throw new NotMatchException(" [!] Plz check grammar!");
 	}
 
-	@Override
-	public String toString() { return "StartChar"; }
-
 }

@@ -14,7 +14,7 @@ public class OpAnalyzer extends Analyzer {
 	private static class Utils {
 		public static boolean isOp(Character c) {
 			return c == '+' || c == '-' || c == '*' || c == '/' ||
-					c == '(' || c == ')';
+					c == '(' || c == ')' || c == '^';
 		}
 	}
 	
@@ -28,7 +28,7 @@ public class OpAnalyzer extends Analyzer {
 			if(Utils.isOp(c)) {
 				SYMBOL_MAP.put(new CharPos(i),
 						new Operator(Operator.charToOpType(c)));
-				refreshMap();
+				refreshStack();
 			}
 		}
 	}

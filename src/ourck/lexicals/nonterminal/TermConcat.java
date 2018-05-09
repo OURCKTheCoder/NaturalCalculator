@@ -5,13 +5,8 @@ import ourck.lexicals.NotMatchException;
 import ourck.genexprs.GenExprs.TermConcat_Exprs;
 
 public class TermConcat extends NonTerminal {
-	private static int counter = 0;
-	private static final int id = counter++;
 	private double val, inh;
 
-	@Override
-	public String toString() { return "TermConcat #" + id + ": val = " + val; }
-	
 	@Override
 	public double recursiveDown(Double inhAttr) throws NotMatchException {
 		this.inh = inhAttr;

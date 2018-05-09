@@ -15,7 +15,7 @@ import java.util.List;
 
 import ourck.lexicals.Lexical;
 import ourck.lexicals.nonterminal.*;
-import ourck.lexicals.terminal.Operator;
+import ourck.lexicals.terminal.*;
 
 public class GenExprs {
 	public static class Expr_Exprs {
@@ -37,12 +37,12 @@ public class GenExprs {
 	}
 	
 	public static class ExprSuffix_Exprs {
-		public static final List<Lexical> genExpr1 = new ArrayList<Lexical>();				// R → + Term
+		public static final List<Lexical> genExpr1 = new ArrayList<Lexical>();			// R → + Term
 		static {
 			genExpr1.add(new Operator(ADD));
 			genExpr1.add(new Term());
 		}
-		public static final List<Lexical> genExpr2 = new ArrayList<Lexical>();				// R → - Term
+		public static final List<Lexical> genExpr2 = new ArrayList<Lexical>();			// R → - Term
 		static {
 			genExpr2.add(new Operator(SUB));
 			genExpr2.add(new Term());
@@ -50,18 +50,38 @@ public class GenExprs {
 	}
 	
 	public static class Factor_Exprs {
-		public static final List<Lexical> genExpr1 = new ArrayList<Lexical>();				// Factor → (Expr)
+		public static final List<Lexical> genExpr1 = new ArrayList<Lexical>();			// Factor → digit V
 		static {
-			genExpr1.add(new Operator(LBK));
-			genExpr1.add(new Expr());
-			genExpr1.add( new Operator(RBK));
+			genExpr1.add(new Digit()); // [!]不能贪图方便而直接new ourck.lexicals.terminal.Digit()，这样这个识别的Digit将成为静态的！
+			genExpr1.add(new FactorSuffix());
 		}
-		public static final List<Lexical> genExpr3 = new ArrayList<Lexical>();				// Factor → -Factor
+		public static final List<Lexical> genExpr2 = new ArrayList<Lexical>();			// Factor → (Expr) V
+		static {
+			genExpr2.add(new Operator(LBK));
+			genExpr2.add(new Expr());
+			genExpr2.add(new Operator(RBK));
+			genExpr2.add(new FactorSuffix());
+		}
+		public static final List<Lexical> genExpr3 = new ArrayList<Lexical>();			// Factor → -Factor V
 		static {
 			genExpr3.add(new Operator(SUB));
 			genExpr3.add(new Factor());
+			genExpr3.add(new FactorSuffix());
 		}
-		// Factor → digit: Match directly.
+		public static final List<Lexical> genExpr4 = new ArrayList<Lexical>();			// Factor → +Factor V
+		static {
+			genExpr4.add(new Operator(ADD));
+			genExpr4.add(new Factor());
+			genExpr4.add(new FactorSuffix());
+		}																				
+	}
+	
+	public static class FactorSuffix_Exprs {
+		public static final List<Lexical> genExpr = new ArrayList<Lexical>();				// V → ^ Factor
+		static {
+			genExpr.add(new Operator(POW));
+			genExpr.add(new Factor());
+		}
 	}
 	
 	public static class Term_Exprs {

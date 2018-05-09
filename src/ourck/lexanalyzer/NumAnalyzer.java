@@ -79,7 +79,7 @@ public class NumAnalyzer extends Analyzer {
 //!				System.out.println(numbuilder.toString()); // TODO DEBUG ONLY
 				SYMBOL_MAP.put(new CharPos(phead, prear),
 						new Digit(Double.parseDouble(numbuilder.toString())));
-				refreshMap();
+				refreshStack();
 				state = 0;
 				i++; // "OK, now we can terminate."
 				break;

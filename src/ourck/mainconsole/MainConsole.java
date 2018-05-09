@@ -18,16 +18,22 @@ public class MainConsole {
 		NumAnalyzer nAnalyzer = new NumAnalyzer();
 		OpAnalyzer oAnalyzer = new OpAnalyzer();
 		
-		try {
-			String testStr = jin();
-			nAnalyzer.analyze(testStr);
-			oAnalyzer.analyze(testStr);
-			System.out.println(" = " + new StartChar().recursiveDown(null));
-		} catch (NotMatchException e) {
-			System.err.println(e.getMessage());
-		} catch (NullPointerException e) {
-			System.err.println(e.getMessage() + " Maybe ')' expected? ");
-			e.printStackTrace();
+		while(true) {
+			try {
+				String testStr = jin();
+				nAnalyzer.analyze(testStr);
+				oAnalyzer.analyze(testStr);
+				System.out.println(" = " + new StartChar().recursiveDown(null));
+			} catch (NotMatchException e) {
+				e.printStackTrace();
+//				System.err.println(e.getMessage());
+			} catch (NullPointerException e) {
+				System.err.println(e.getMessage() + " Maybe '(' & ')' not match? ");
+			} catch (NumberFormatException e) {
+				System.err.println(" [!] Plz input a valid num!");
+			} finally {
+				System.out.println("--------------------------------------");
+			}
 		}
 
 	}

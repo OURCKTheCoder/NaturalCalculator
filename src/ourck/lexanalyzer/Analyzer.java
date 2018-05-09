@@ -17,7 +17,7 @@ public abstract class Analyzer {
 	public static final Map<CharPos, Terminal> SYMBOL_MAP = 
 			new TreeMap<CharPos, Terminal>(); // keep input order
 	public static LinkedStack<Terminal> INPUT_STACK = LinkedStack.generate();
-	public static void refreshMap() {
+	public static void refreshStack() { // Reset INPUT_STACK
 		INPUT_STACK = LinkedStack.generate(SYMBOL_MAP.values());
 	}
 	abstract void analyze(String text);

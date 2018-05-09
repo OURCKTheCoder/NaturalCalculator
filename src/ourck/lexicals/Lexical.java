@@ -39,12 +39,22 @@ T → * Factor
 T → / Factor 
 	{ T.val = T.inh / Factor.val; }
 
-Factor → (Expr)
-	{ Factor.val = Expr.val; }
-Factor → digit
-	{ Factor.val = digit.val; }
-Factor → -Factor 
-	{ Factor.val = -Factor.val; }
+Factor → digit V
+	{ V.inh = digit.val;
+	Factor.val = V.val; }
+Factor → (Expr) V	
+	{ V.inh = Expr.val; }
+	Factor.val = V.val; }
+Factor → -Factor 1 V	
+	{ V.inh = -Factor.val; }
+	Factor.val = V.val; }
+Factor → +Factor 1 V	
+	{ V.inh = Factor.val; }
+	Factor.val = V.val; }
+V → ^ Factor	
+	{ V.val = pow(V.inh, Factor.val); }
+V → ε
+	{ V.val = V.inh }
 	
 (注: S 即为 ExprConcat , R 即为 ExprSuffix , U 为 TermConcat , T 为 TermSuffix )
  *

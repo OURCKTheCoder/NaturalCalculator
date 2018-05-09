@@ -15,6 +15,7 @@ public class Operator extends Terminal {
 		case '/': return DIV;
 		case '(': return LBK;
 		case ')': return RBK;
+		case '^': return POW;
 		default: return null; // TODO default = ?
 		}
 	}
@@ -27,4 +28,5 @@ public class Operator extends Terminal {
 				(((Operator)obj).op == this.op ? true : false)
 				: false;
 	}
+	
 }

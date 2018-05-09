@@ -9,8 +9,6 @@ import ourck.lexicals.terminal.*;
 import ourck.genexprs.GenExprs.TermSuffix_Exprs;
 
 public class TermSuffix extends NonTerminal {
-	private static int counter = 0;
-	private static final int id = counter++;
 	private double val, inh;
 	
 	@Override
@@ -60,13 +58,11 @@ public class TermSuffix extends NonTerminal {
 				
 				break;
 			default:
+//				Analyzer.INPUT_STACK = temp; // No need to Restore: no pop().
 				throw new NotMatchException();
 			}
 		}
 		return val;
 	}
-	
-	@Override
-	public String toString() { return "TermSuffix #" + id + ": val = " + val; }
 	
 }

@@ -8,8 +8,6 @@ import ourck.genexprs.GenExprs.Term_Exprs;
 import ourck.lexanalyzer.*;
 
 public class Term extends NonTerminal {
-	private static int counter = 0;
-	private static final int id = counter++;
 	private double val; // Term本身就没有继承属性
 
 	@Override
@@ -27,9 +25,6 @@ public class Term extends NonTerminal {
 		return val;
 		
 	}
-
-	@Override
-	public String toString() { return "Term #" + id + ": val = " + val; }
 
 	public static void main(String[] args) throws NotMatchException {
 		List<Terminal> testdata = new ArrayList<Terminal>();

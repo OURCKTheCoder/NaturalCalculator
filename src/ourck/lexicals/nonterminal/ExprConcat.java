@@ -5,8 +5,6 @@ import ourck.lexicals.NotMatchException;
 import ourck.genexprs.GenExprs.ExprConcat_Exprs;
 
 public class ExprConcat extends NonTerminal {
-	private static int counter = 0;
-	private static final int id = counter++;
 	private double val, inh;
 	
 	@Override
@@ -28,6 +26,4 @@ public class ExprConcat extends NonTerminal {
 		}
 		return val;
 	}
-	@Override
-	public String toString() { return "ExprConcat #" + id + ": val = " + val; }
 }

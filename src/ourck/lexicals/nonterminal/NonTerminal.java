@@ -8,8 +8,6 @@ public abstract class NonTerminal implements Lexical {
 	public void setVal(double val) { this.val = val; }
 	public double getVal() { return this.val; } // Used for child class. ADD 'THIS'!
 	abstract public double recursiveDown(Double inhAttr) throws NotMatchException;
-	@Override
-	abstract public String toString();
 }
 
 

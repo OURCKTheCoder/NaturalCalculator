@@ -26,8 +26,6 @@ public class Expr extends NonTerminal {
 //		GENEXPR_LIST.put(1, exprBody1);
 //	} //由于表达式及其语义动作各异，没办法采用统一的办法。
 	
-	private static int counter = 0;
-	private static final int id = counter++; // Reference counter.
 	private double val; // 开始符号没有继承属性
 
 	@Override
@@ -45,9 +43,6 @@ public class Expr extends NonTerminal {
 		
 		return val;
 	}
-
-	@Override
-	public String toString() { return "Expression #" + id + ": val = " + val; }
 
 	public static void main(String[] args) throws NotMatchException {
 		List<Terminal> testdata = new ArrayList<Terminal>();
