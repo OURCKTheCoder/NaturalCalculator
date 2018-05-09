@@ -30,37 +30,33 @@ public class ExprSuffix extends NonTerminal {
 		ListIterator<Lexical> it = null;
 		if(!(c instanceof Operator)) throw new NotMatchException();
 		else {
-			switch(((Operator)c).getOpchar()) {
-			case ADD:
-				Analyzer.INPUT_STACK.pop();
-				it = ExprSuffix_Exprs.genExpr1.listIterator();
-				it.next(); // TODO Match '+'.
-				
-				try {
-					val = inh + ((Term)it.next()).recursiveDown(null);	// R.val = R.inh + Term.val;
-				} catch(NotMatchException e) {
-					Analyzer.INPUT_STACK = temp; // Restore.
-					throw new NotMatchException();
-				}
-				
-				break;
-			case SUB:
-				Analyzer.INPUT_STACK.pop();
-				it = ExprSuffix_Exprs.genExpr2.listIterator();
-				it.next(); // TODO Match '-'.
-				
-				try {
+			try {
+				switch(((Operator)c).getOpchar()) {
+				case ADD:
+					Analyzer.INPUT_STACK.pop();
+					it = ExprSuffix_Exprs.genExpr1.listIterator();			//1. R → + Term
+					it.next(); // TODO Match '+'.
+					
+					val = inh + ((Term)it.next()).recursiveDown(null);		// R.val = R.inh + Term.val;
+					
+					break;
+				case SUB:
+					Analyzer.INPUT_STACK.pop();
+					it = ExprSuffix_Exprs.genExpr2.listIterator();			//2. R → - Term
+					it.next(); // TODO Match '-'.
+					
 					val = inh - ((Term)it.next()).recursiveDown(null);		// R.val = R.inh - Term.val;
-				} catch(NotMatchException e) {
-					Analyzer.INPUT_STACK = temp; // Restore.
+					
+					break;
+				default:
+//					Analyzer.INPUT_STACK = temp; // No need to Restore: no pop().
 					throw new NotMatchException();
 				}
-				
-				break;
-			default:
-//				Analyzer.INPUT_STACK = temp; // No need to Restore: no pop().
-				throw new NotMatchException();
+			} catch(NotMatchException e) {
+				Analyzer.INPUT_STACK = temp; // Restore.
+				throw new NotMatchException(e.getMessage());
 			}
+
 		}
 		return val;
 	}

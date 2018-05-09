@@ -19,8 +19,7 @@ import ourck.lexicals.terminal.*;
 
 public class GenExprs {
 	public static class Expr_Exprs {
-		// Expr → Term S
-		public static final List<NonTerminal> genExpr = new ArrayList<NonTerminal>();
+		public static final List<NonTerminal> genExpr = new ArrayList<NonTerminal>();		// Expr → Term S
 		static {
 			genExpr.add(new Term());
 			genExpr.add(new ExprConcat());
@@ -28,8 +27,7 @@ public class GenExprs {
 	}
 	
 	public static class ExprConcat_Exprs {
-		// S → R S1:
-		public static final List<NonTerminal> genExpr = new ArrayList<NonTerminal>();
+		public static final List<NonTerminal> genExpr = new ArrayList<NonTerminal>();		// Expr → Term S
 		static {
 			genExpr.add(new ExprSuffix());
 			genExpr.add(new ExprConcat());

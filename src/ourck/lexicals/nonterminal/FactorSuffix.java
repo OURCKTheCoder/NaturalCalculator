@@ -31,13 +31,12 @@ public class FactorSuffix extends NonTerminal {
 			switch(opchar) {
 			case POW:
 				Analyzer.INPUT_STACK.pop();
-				it = FactorSuffix_Exprs.genExpr.listIterator();
+				it = FactorSuffix_Exprs.genExpr.listIterator();		//1.V → ^ Factor
 				it.next(); // TODO Match '^'.
 				
 				try {
-					double tempval = inh; // TODO Stack corrupted?????
 					double factor_val = ((Factor)it.next()).recursiveDown(null);
-					val = Math.pow(tempval, factor_val);
+					val = Math.pow(inh, factor_val);				//  val = pow(V.inh, Factor.val)
 				} catch(NotMatchException e) {
 					Analyzer.INPUT_STACK = temp;
 					throw new NotMatchException();
@@ -45,11 +44,7 @@ public class FactorSuffix extends NonTerminal {
 				
 				break;
 			default : 
-//				Analyzer.INPUT_STACK = temp; // No need to Restore: no pop().
-//				NotMatchException e2 = new NotMatchException();
-//				e2.initCause(e);
-//				throw e2; // 关于含有空符号的产生式体，并不抛出异常			// S → ε:
-				val = inh;													// S.val = S.inh
+				val = inh;											//2. S → ε: S.val = S.inh
 				break;
 			}
 		}

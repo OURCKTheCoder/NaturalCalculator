@@ -26,11 +26,11 @@ public class Expr extends NonTerminal {
 //		GENEXPR_LIST.put(1, exprBody1);
 //	} //由于表达式及其语义动作各异，没办法采用统一的办法。
 	
-	private double val; // 开始符号没有继承属性
+	private double val;
 
 	@Override
 	public double recursiveDown(Double inhAttr) throws NotMatchException {
-		ListIterator<NonTerminal> it = Expr_Exprs.genExpr.listIterator();
+		ListIterator<NonTerminal> it = Expr_Exprs.genExpr.listIterator();	// Expr → Term S
 		
 		try {
 			double term_val = it.next().recursiveDown(null);

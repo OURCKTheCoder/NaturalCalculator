@@ -30,37 +30,31 @@ public class TermSuffix extends NonTerminal {
 		ListIterator<Lexical> it = null;
 		if(!(c instanceof Operator)) throw new NotMatchException();
 		else {
-			switch(((Operator)c).getOpchar()) {
-			case MTP:
-				Analyzer.INPUT_STACK.pop();
-				it = TermSuffix_Exprs.genExpr1.listIterator();
-				it.next(); // TODO Match '*'.
-				
-				try {
+			try {
+				switch(((Operator)c).getOpchar()) {
+				case MTP:
+					Analyzer.INPUT_STACK.pop();
+					it = TermSuffix_Exprs.genExpr1.listIterator();
+					it.next(); // TODO Match '*'.
 					val = inh * ((Factor)it.next()).recursiveDown(null);	// T.val = T.inh * Factor.val;
-				} catch(NotMatchException e) {
-					Analyzer.INPUT_STACK = temp; // Restore.
-					throw new NotMatchException();
-				}
-				
-				break;
-			case DIV:
-				Analyzer.INPUT_STACK.pop();
-				it = TermSuffix_Exprs.genExpr2.listIterator();
-				it.next(); // TODO Match '/'.
-				
-				try {
+					break;
+					
+				case DIV:
+					Analyzer.INPUT_STACK.pop();
+					it = TermSuffix_Exprs.genExpr2.listIterator();
+					it.next(); // TODO Match '/'.
 					val = inh / ((Factor)it.next()).recursiveDown(null);		// T.val = T.inh / Factor.val;
-				} catch(NotMatchException e) {
-					Analyzer.INPUT_STACK = temp; // Restore.
+					break;
+
+				default:
+//					Analyzer.INPUT_STACK = temp; // No need to Restore: no pop().
 					throw new NotMatchException();
 				}
-				
-				break;
-			default:
-//				Analyzer.INPUT_STACK = temp; // No need to Restore: no pop().
+			} catch(NotMatchException e) {
+				Analyzer.INPUT_STACK = temp; // Restore.
 				throw new NotMatchException();
 			}
+			
 		}
 		return val;
 	}
